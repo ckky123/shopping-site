@@ -9,32 +9,27 @@ Globals:
   Function:
     Timeout: 3
 Resources:
-  HelloWorldFunction:
+  HealthCheckFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: HelloWorldFunction
-      Handler: app.lambdaHandler
+      CodeUri: HealthCheckFunction
+      Handler: app.healthCheckHandler
       Runtime: nodejs12.x
       Events:
-        HelloWorld:
+        Health:
           Type: Api
           Properties:
-            Path: /hello
+            Path: /health
             Method: get
-Outputs:
-  HelloWorldApi:
-    Description: API Gateway endpoint URL for Prod stage for Hello World function
-    Value:
-      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/
-  HelloWorldFunction:
-    Description: Hello World Lambda Function ARN
-    Value:
-      Fn::GetAtt:
-      - HelloWorldFunction
-      - Arn
-  HelloWorldFunctionIamRole:
-    Description: Implicit IAM Role created for Hello World function
-    Value:
-      Fn::GetAtt:
-      - HelloWorldFunctionRole
-      - Arn
+  GetUsersFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: GetUsersFunction
+      Handler: app.getUsersHandler
+      Runtime: nodejs12.x
+      Events:
+        Users:
+          Type: Api
+          Properties:
+            Path: /users
+            Method: get

@@ -5,7 +5,7 @@ const chai = require('chai');
 const expect = chai.expect;
 var event, context;
 
-describe('Tests index', function () {
+describe('healthCheckHandler', function () {
     it('verifies successful response', async () => {
         const result = await app.healthCheckHandler(event, context)
 
@@ -18,5 +18,15 @@ describe('Tests index', function () {
         expect(response).to.be.an('object');
         expect(response.message).to.be.equal("The api is healthy");
         // expect(response.location).to.be.an("string");
+    });
+});
+
+describe('getUsersHandler', function () {
+    it('return a users', async () => {
+        const result = await app.getUsersHandler(event, context)
+
+        expect(result).to.be.an('object');
+        expect(result.statusCode).to.equal(200);
+
     });
 });
